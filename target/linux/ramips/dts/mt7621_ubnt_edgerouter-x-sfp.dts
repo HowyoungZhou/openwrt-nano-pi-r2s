@@ -1,5 +1,3 @@
-/dts-v1/;
-
 #include "mt7621_ubnt_edgerouter-x.dtsi"
 
 / {
@@ -58,6 +56,12 @@
 	ephy7: ethernet-phy@7 {
 		reg = <7>;
 		sfp = <&sfp_eth5>;
+	};
+};
+
+&rgmii2_pins {
+	rgmii2 {
+		function = "gpio";
 	};
 };
 

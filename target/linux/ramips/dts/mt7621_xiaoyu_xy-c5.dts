@@ -1,5 +1,3 @@
-/dts-v1/;
-
 #include "mt7621.dtsi"
 
 #include <dt-bindings/gpio/gpio.h>
@@ -14,23 +12,19 @@
 		led-failsafe = &led_sys;
 		led-running = &led_sys;
 		led-upgrade = &led_sys;
-		label-mac-device = &ethernet;
-	};
-
-	chosen {
-		bootargs = "console=ttyS0,57600";
+		label-mac-device = &gmac0;
 	};
 
 	leds {
 		compatible = "gpio-leds";
 
 		work {
-			label = "xy-c5:green:work";
+			label = "green:work";
 			gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
 		};
 
 		led_sys: sys {
-			label = "xy-c5:green:sys";
+			label = "green:sys";
 			gpios = <&gpio 7 GPIO_ACTIVE_LOW>;
 		};
 	};
@@ -90,19 +84,31 @@
 	status = "okay";
 };
 
-&ethernet {
-	compatible = "mediatek,ralink-mt7621-eth";
-	mediatek,switch = <&gsw>;
+&gmac0 {
 	mtd-mac-address = <&factory 0x4>;
 };
 
-&switch0 {
-	/delete-property/ compatible;
-	phy-mode = "rgmii";
+&gmac1 {
+	mtd-mac-address = <&factory 0x4>;
+	mtd-mac-address-increment = <1>;
+	status = "okay";
 };
 
 &gsw {
-	compatible = "mediatek,ralink-mt7621-gsw";
+	mediatek,portmap = "llllw";
+	status = "okay";
+};
+
+&hnat {
+	mtketh-wan = "eth1";
+	mtketh-ppd = "eth0";
+	mtketh-lan = "eth0";
+	mtketh-max-gmac = <2>;
+	/delete-property/ mtkdsa-wan-port;
+};
+
+&switch0 {
+	status = "disabled";
 };
 
 &state_default {
