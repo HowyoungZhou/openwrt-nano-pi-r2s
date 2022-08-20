@@ -7,6 +7,7 @@
 - luci-app-frpc
 - luci-app-frps
 - luci-app-vlmcsd (KMS)
+- luci-proto-openconnect
 
 ### IPv6
 - odhcp6c
