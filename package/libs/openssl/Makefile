@@ -9,9 +9,9 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openssl
 PKG_BASE:=1.1.1
-PKG_BUGFIX:=q
+PKG_BUGFIX:=u
 PKG_VERSION:=$(PKG_BASE)$(PKG_BUGFIX)
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=2
 PKG_USE_MIPS16:=0
 
 PKG_BUILD_PARALLEL:=1
@@ -27,7 +27,7 @@ PKG_SOURCE_URL:= \
 	ftp://ftp.pca.dfn.de/pub/tools/net/openssl/source/ \
 	ftp://ftp.pca.dfn.de/pub/tools/net/openssl/source/old/$(PKG_BASE)/
 
-PKG_HASH:=d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca
+PKG_HASH:=e2f8d84b523eecd06c7be7626830370300fbcc15386bf5142d72758f6963ebc6
 
 PKG_LICENSE:=OpenSSL
 PKG_LICENSE_FILES:=LICENSE
@@ -130,8 +130,8 @@ endef
 
 define Package/libopenssl-conf/conffiles
 /etc/ssl/openssl.cnf
-$(if CONFIG_OPENSSL_ENGINE_BUILTIN_DEVCRYPTO,/etc/ssl/engines.cnf.d/devcrypto.cnf)
-$(if CONFIG_OPENSSL_ENGINE_BUILTIN_PADLOCK,/etc/ssl/engines.cnf.d/padlock.cnf)
+$(if $(CONFIG_OPENSSL_ENGINE_BUILTIN_DEVCRYPTO),/etc/ssl/engines.cnf.d/devcrypto.cnf)
+$(if $(CONFIG_OPENSSL_ENGINE_BUILTIN_PADLOCK),/etc/ssl/engines.cnf.d/padlock.cnf)
 endef
 
 define Package/libopenssl-conf/description
@@ -334,6 +334,7 @@ define Build/Configure
 			--libdir=lib \
 			--openssldir=/etc/ssl \
 			--cross-compile-prefix="$(TARGET_CROSS)" \
+			$(TARGET_CFLAGS) \
 			$(TARGET_CPPFLAGS) \
 			$(TARGET_LDFLAGS) \
 			$(OPENSSL_OPTIONS) && \

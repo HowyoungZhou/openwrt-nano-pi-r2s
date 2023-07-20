@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ath11k-firmware
-PKG_SOURCE_DATE:=2022-04-27
-PKG_SOURCE_VERSION:=9a7702977b9f3e06548b2b86fe99f2552b7e7556
-PKG_MIRROR_HASH:=da9c25ac3d3e0427fc233541b627b738c22d91a8551d8b2355eef5f91d7f1f47
+PKG_SOURCE_DATE:=2022-11-25
+PKG_SOURCE_VERSION:=9f285fbc1f7040d0ca6480926d1922b479e2d839
+PKG_MIRROR_HASH:=4a2d09661d8ae932f93b1cdf9889197f4051bc0dfe9b757fddc6f4af566f0bb3
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE_PROTO:=git
@@ -35,11 +35,6 @@ endef
 define Package/ath11k-firmware-ipq8074
 $(Package/ath11k-firmware-default)
   TITLE:=ath11k firmware for IPQ8074 devices
-endef
-
-define Package/ath11k-firmware-qca6390
-$(Package/ath11k-firmware-default)
-  TITLE:=ath11k firmware for QCA6390 devices
 endef
 
 define Package/ath11k-firmware-qcn9074
@@ -73,13 +68,6 @@ define Package/ath11k-firmware-ipq8074/install
 		$(1)/lib/firmware/IPQ8074/
 endef
 
-define Package/ath11k-firmware-qca6390/install
-	$(INSTALL_DIR) $(1)/lib/firmware/ath11k/QCA6390/hw2.0
-	$(INSTALL_DATA) \
-		$(PKG_BUILD_DIR)/QCA6390/hw2.0/1.0.1/WLAN.HST.1.0.1-05266-QCAHSTSWPLZ_V2_TO_X86-1/* \
-		$(1)/lib/firmware/ath11k/QCA6390/hw2.0/
-endef
-
 define Package/ath11k-firmware-qcn9074/install
 	$(INSTALL_DIR) $(1)/lib/firmware/ath11k/QCN9074/hw1.0
 	$(INSTALL_DATA) \
@@ -89,5 +77,4 @@ endef
 
 $(eval $(call BuildPackage,ath11k-firmware-ipq6018))
 $(eval $(call BuildPackage,ath11k-firmware-ipq8074))
-$(eval $(call BuildPackage,ath11k-firmware-qca6390))
 $(eval $(call BuildPackage,ath11k-firmware-qcn9074))
